@@ -1,7 +1,7 @@
 import React from 'react';
 import './Notes.css';
 
-function Notes() {
+const Notes: React.FC = () => {
   return (
     <div className="Notes">
 

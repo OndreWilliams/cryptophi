@@ -1,0 +1,38 @@
+export interface RawPair {
+  id: string;
+  base_currency: string;
+  quote_currency: string;
+  base_min_size: string;
+  base_max_size: string;
+  quote_increment: string;
+  base_increment: string;
+  display_name: string;
+  min_market_funds: string;
+  max_market_funds: string;
+  margin_enabled: boolean;
+  fx_stablecoin: boolean;
+  max_slippage_percentage: string;
+  post_only: boolean;
+  limit_only: boolean;
+  cancel_only: boolean;
+  trading_disabled: boolean;
+  status: string;
+  status_message: string;
+  auction_mode: boolean;
+  favorite?: boolean
+}
+
+export interface ProcessedPair {
+  id: string;
+  base_currency: string;
+  quote_currency: string;
+  base_min_size: string;
+  base_max_size: string;
+  base_increment: string;
+  display_name: string;
+  margin_enabled: boolean;
+  fx_stablecoin: boolean;
+  trading_disabled: boolean;
+  status: string;
+  favorite: boolean;
+}

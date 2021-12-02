@@ -1,7 +1,7 @@
 import React from 'react';
 import './Chart.css';
 
-function Chart() {
+const Chart: React.FC = () => {
   return (
     <div className="Chart">
 

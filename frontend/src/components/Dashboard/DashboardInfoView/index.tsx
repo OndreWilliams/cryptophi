@@ -1,7 +1,7 @@
 import React from 'react';
 import './Info.css';
 
-function Info() {
+const Info: React.FC = () => {
   return (
     <div className="Info">
 
