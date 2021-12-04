@@ -1,38 +1,56 @@
-export interface RawPair {
-  id: string;
+
+// Interface for pairs to be displayed in
+  // dashboard table and saved in state >
+export interface ProcessedPair {
+  pairId: string;
   base_currency: string;
   quote_currency: string;
   base_min_size: string;
   base_max_size: string;
-  quote_increment: string;
   base_increment: string;
   display_name: string;
-  min_market_funds: string;
-  max_market_funds: string;
   margin_enabled: boolean;
   fx_stablecoin: boolean;
+  trading_disabled: boolean;
+  status: string;
+};
+
+// Interface for handling of pairs received
+  // directly from the Coinbase API >
+export interface RawPair extends Omit<ProcessedPair, 'pairId'> {
+  id: string;
+  quote_increment: string;
+  min_market_funds: string;
+  max_market_funds: string;
   max_slippage_percentage: string;
   post_only: boolean;
   limit_only: boolean;
   cancel_only: boolean;
-  trading_disabled: boolean;
-  status: string;
   status_message: string;
   auction_mode: boolean;
-  favorite?: boolean
-}
+};
 
-export interface ProcessedPair {
-  id: string;
-  base_currency: string;
-  quote_currency: string;
-  base_min_size: string;
-  base_max_size: string;
-  base_increment: string;
-  display_name: string;
-  margin_enabled: boolean;
-  fx_stablecoin: boolean;
-  trading_disabled: boolean;
-  status: string;
-  favorite: boolean;
-}
+// Parent interface of RowVariantProps
+  // and TableProps defined below >
+interface PairProps {
+  checkOpacity: number;
+  onSelectPair: (e: React.MouseEvent<HTMLElement>, pairId: string) => void;
+};
+
+// Definition of function utilized in
+  // RowVariantProps and TableProps defined below >
+type ToggleFav = (e: React.MouseEvent<HTMLElement>, pair: ProcessedPair) => void;
+
+// Final props interface for RowVariant component >
+export interface RowVariantProps extends PairProps {
+  pairs: ProcessedPair[];
+  onToggleFav: ToggleFav;
+};
+
+// Final props interface for Pairs component >
+export interface PairsProps extends Omit<PairProps, 'checkOpacity'> {
+  favData: ProcessedPair[];
+  nonfavData: ProcessedPair[];
+  onAddFav: ToggleFav;
+  onRemoveFav: ToggleFav;
+};

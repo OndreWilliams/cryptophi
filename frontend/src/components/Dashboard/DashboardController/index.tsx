@@ -1,71 +1,60 @@
 import React, { useEffect, useState } from 'react';
 import './DashboardController.css';
 import Pairs from '../DashboardPairsView';
-import { ProcessedPair, RawPair } from './dbcTypes';
+import { ProcessedPair } from './dbcTypes';
+import { addFavorite, removeFavorite, getFavorites, getAllPairs } from './dbcFunctions';
 
 const DashboardController: React.FC = () => {
   const [instruments, setInstruments] = useState<ProcessedPair[]>([]);
-  const [favPairs, setFavPairs] = useState<ProcessedPair[]>([]);
+  const [favorites, setFavorites] = useState<ProcessedPair[]>([]);
 
   const allPairsUrl = 'https://api.pro.coinbase.com/products';
 
   const productStatsUrl =
     'https://api.exchange.coinbase.com/products/BTC-USD/stats';
 
+  // Retrieve all pairs from Coinbase API on initial load >
   useEffect(() => {
+    getAllPairs(allPairsUrl)
+    .then((allPairs) => setInstruments(allPairs));
 
-    let rawPairs: RawPair[] = [];
-
-    const getAllPairs = async () => {
-      await fetch(allPairsUrl)
-        .then((res) => res.json())
-        .then((data) => {rawPairs = data});
-
-      let filteredPairs: ProcessedPair[] = rawPairs
-        .filter((pair) => pair.quote_currency === 'USD')
-        .map((pair) => {
-          return {
-            id: pair.id,
-            base_currency: pair.base_currency,
-            quote_currency: pair.quote_currency,
-            base_min_size: pair.base_min_size,
-            base_max_size: pair.base_max_size,
-            base_increment: pair.base_increment,
-            display_name: pair.display_name,
-            margin_enabled: pair.margin_enabled,
-            fx_stablecoin: pair.fx_stablecoin,
-            trading_disabled: pair.trading_disabled,
-            status: pair.status,
-            favorite: false
-          }
-        })
-        .sort((a, b) => a.id > b.id ? 1 : -1
-      );
-
-      setInstruments(filteredPairs);
-    };
-
-    getAllPairs();
+    getFavorites(1)
+    .then((allFavorites) => setFavorites(allFavorites));
   }, []);
 
-  const toggleFavoriteHandler =
-    (e: React.MouseEvent<HTMLElement>, pairId: string) => {
+  // Click event handler for adding a new favorite >
+  const addFavHandler =
+    (e: React.MouseEvent<HTMLElement>, pair: ProcessedPair) => {
       e.stopPropagation();
-      const pairIdx = instruments.findIndex(
-        (pair) => pair.id === pairId
-      );
-      const newFavorite = instruments[pairIdx];
 
-      setInstruments(prevInstruments =>
-        [...prevInstruments.filter(item => item.id !== pairId)]
-      );
+      addFavorite(1, pair)
+        .then((updatedFavorites) => {
 
-      setFavPairs(prevFavPairs =>
-        [...prevFavPairs, newFavorite]
-        .sort((a, b) => a.id > b.id ? 1 : -1)
-      );
+          setFavorites(updatedFavorites
+            .sort((a, b) => a.pairId > b.pairId ? 1 : -1));
+
+          setInstruments((prevInstruments) =>
+            [...prevInstruments.filter(item => item.pairId !== pair.pairId)]);
+        });
   };
 
+  // Click event handler for removing a favorite >
+  const removeFavHandler =
+    (e: React.MouseEvent<HTMLElement>, pair: ProcessedPair) => {
+      e.stopPropagation();
+      removeFavorite(1, pair.pairId)
+        .then((updatedFavorites) => {
+
+          setFavorites(updatedFavorites
+            .sort((a, b) => a.pairId > b.pairId ? 1 : -1));
+
+          setInstruments((prevInstruments) => [...prevInstruments, pair]
+            .sort((a, b) => a.pairId > b.pairId ? 1 : -1));
+        });
+
+  };
+
+  // Click event handler for setting current chart and info >
   const selectPairHandler =
     (e: React.MouseEvent<HTMLElement>, pairId: string) => {
       e.stopPropagation();
@@ -73,12 +62,13 @@ const DashboardController: React.FC = () => {
   };
 
   return (
-    <div className="DashboardController">
+    <div className='DashboardController'>
       <Pairs
-        favData={favPairs}
-        pairData={instruments}
+        favData={favorites}
+        nonfavData={instruments}
         onSelectPair={selectPairHandler}
-        onToggleFavorite={toggleFavoriteHandler}
+        onAddFav={addFavHandler}
+        onRemoveFav={removeFavHandler}
       />
     </div>
   );

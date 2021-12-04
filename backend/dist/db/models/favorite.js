@@ -18,10 +18,51 @@ Favorite.init({
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false
     },
-    instrument: {
+    pairId: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
-    }
+        unique: true
+    },
+    base_currency: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    },
+    quote_currency: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    },
+    base_min_size: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    },
+    base_max_size: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    },
+    base_increment: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    },
+    display_name: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    },
+    margin_enabled: {
+        type: sequelize_1.DataTypes.BOOLEAN,
+        allowNull: false
+    },
+    fx_stablecoin: {
+        type: sequelize_1.DataTypes.BOOLEAN,
+        allowNull: false
+    },
+    trading_disabled: {
+        type: sequelize_1.DataTypes.BOOLEAN,
+        allowNull: false
+    },
+    status: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    },
 }, {
     sequelize: init_1.default,
     tableName: 'Favorites',

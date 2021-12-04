@@ -1,10 +1,11 @@
-import express from 'express';
 import User from './db/models/user';
 import dbConn from './db/init';
+const app = require('./app');
 
-const app = express();
 const { port } = require('./config');
 
+// Create postgres db tables,
+  // start the server, and register demo user
 dbConn
   .sync({
     logging: console.log,

@@ -3,7 +3,7 @@ import './Chart.css';
 
 const Chart: React.FC = () => {
   return (
-    <div className="Chart">
+    <div className='Chart'>
 
     </div>
   );
