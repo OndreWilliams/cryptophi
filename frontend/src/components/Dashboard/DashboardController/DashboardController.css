@@ -1,0 +1,62 @@
+.dashboardController {
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  margin: 0px auto 0px auto;
+  padding: 15px 0px;
+  box-sizing: border-box;
+  background-color: #a3abb1a9;
+}
+
+.dashboardGrid {
+  max-height: 100%;
+  width: 90vw;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-rows: 1fr 1fr;
+  border: 2px solid red;
+  justify-self: center;
+  align-self: center;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.chartAndInfo {
+  border: 3px solid orangered;
+  display: grid;
+  justify-content: space-between;
+  grid-template-columns: 1fr 1fr;
+}
+
+.chartContainer {
+  height: 40vh;
+  max-height: 40vh;
+  width: 98%;
+  border: 2px solid #2f455c7a;
+  grid-column-start: 0;
+  align-self: start;
+  justify-self: start;
+  margin-left: 0;
+  /* box-sizing: border-box; */
+}
+
+.infoContainer {
+  width: 98%;
+  width: auto;
+  border: 5px solid #2f455c7a;
+
+}
+
+.pairsContainer {
+  height: 40vh;
+  max-height: 40vh;
+  display: grid;
+  grid-template-rows: 1fr 9fr;
+  width: 100%;
+  border: 2px solid #2F455C;
+  border-radius: 7px;
+  justify-self: center;
+  align-self: flex-end;
+  margin:auto;
+  box-sizing: border-box;
+}

@@ -1,0 +1,21 @@
+.chart {
+
+  height: 100%;
+  max-height: 100%;
+  width: 98%;
+  box-sizing: content-box;
+  font-size: 14px;
+}
+
+.customTooltip {
+  background: #2f455cbb;
+  color: #48f7e0;
+  text-align: center;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  border-radius: 0.2rem;
+  padding: 1rem;
+  box-shadow: 1px 2px 10px -3px;
+}

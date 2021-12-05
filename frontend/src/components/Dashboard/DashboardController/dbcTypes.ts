@@ -54,3 +54,13 @@ export interface PairsProps extends Omit<PairProps, 'checkOpacity'> {
   onAddFav: ToggleFav;
   onRemoveFav: ToggleFav;
 };
+
+// Type for chart data elements >
+export interface DataPoint {date: string; close: number};
+
+// Type for price data arrays that will be nested in an array on receipt >
+export type NumberArray = number[];
+
+export interface ChartProps {
+  chartData: DataPoint[];
+}

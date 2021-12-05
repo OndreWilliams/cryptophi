@@ -18,34 +18,42 @@ const Pairs: React.FC<PairsProps> = ({
   }) => {
 
     return (
-      <div className='Pairs'>
-        <Table size='small'>
-          <TableHead>
-            <TableRow>
-              <TableCell>Favorite</TableCell>
-              <TableCell align='center'>Pair</TableCell>
-              <TableCell align='center'>Status</TableCell>
-              <TableCell align='center'>Tick Size</TableCell>
-              <TableCell align='center'>Min Lot</TableCell>
-              <TableCell align='right'>Max Lot</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <RowVariant
-              checkOpacity={100}
-              pairs={favData}
-              onToggleFav={onRemoveFav}
-              onSelectPair={onSelectPair}
-            />
-            <RowVariant
-              checkOpacity={0}
-              pairs={nonfavData}
-              onToggleFav={onAddFav}
-              onSelectPair={onSelectPair}
-            />
-          </TableBody>
-        </Table>
-      </div>
+      <React.Fragment>
+        <div className="tableHead">
+          <Table size='small'>
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{width: 1/6, fontWeight: 600 }} align='center'>Favorite</TableCell>
+                <TableCell sx={{width: 1/6, fontWeight: 600 }} align='center'>Pair</TableCell>
+                <TableCell sx={{width: 1/6, fontWeight: 600 }} align='center'>Status</TableCell>
+                <TableCell sx={{width: 1/6, fontWeight: 600 }} align='center'>Tick Size</TableCell>
+                <TableCell sx={{width: 1/6, fontWeight: 600 }} align='center'>Min Lot</TableCell>
+                <TableCell sx={{width: 1/6, fontWeight: 600 }} align='center'>Max Lot</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody></TableBody>
+          </Table>
+        </div>
+
+        <div className="tableRows">
+          <Table size='small'>
+            <TableBody >
+              <RowVariant
+                checkOpacity={100}
+                pairs={favData}
+                onToggleFav={onRemoveFav}
+                onSelectPair={onSelectPair}
+              />
+              <RowVariant
+                checkOpacity={0}
+                pairs={nonfavData}
+                onToggleFav={onAddFav}
+                onSelectPair={onSelectPair}
+              />
+            </TableBody>
+          </Table>
+        </div>
+      </React.Fragment>
     );
 }
 

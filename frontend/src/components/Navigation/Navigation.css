@@ -1,0 +1,49 @@
+.navbarContainer {
+  background-color: #2F455C;
+  border-width: 10px;
+  border-left-style: solid;
+  border-image:
+    linear-gradient(
+      to bottom,
+      #1DCDFE,
+      #21D0B2
+    ) 1 100%;
+  width: 100%;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  position: sticky;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  box-sizing: border-box;
+}
+
+.appLogo {
+  font-family: 'Lucida Console', monospace;
+  align-self: center;
+  justify-self: flex-start;
+  font-size: 32px;
+  margin: 15px;
+  font-weight: bold;
+  background-size: 100%;
+  background-color: #21D0B2;
+  background-image: linear-gradient(45deg, #1DCDFE, #34F5C5);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-size: 100%;
+}
+
+.links {
+  justify-self: flex-end;
+  align-self: center;
+  margin-right: 20px;
+  height: auto;
+  width: 200px;
+  align-items: center;
+  justify-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
