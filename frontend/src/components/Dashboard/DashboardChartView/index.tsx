@@ -46,7 +46,7 @@ const Chart: React.FC<ChartProps> = props => {
             tickLine={false}
             tickFormatter={number => `$${number}`}
           />
-          <Tooltip content={<CustomTooltip/>} />
+          <Tooltip />
 
           <CartesianGrid opacity={0.35} vertical={false} />
         </AreaChart>
@@ -55,16 +55,5 @@ const Chart: React.FC<ChartProps> = props => {
   );
 }
 
-function CustomTooltip({active, payload, label}: any){
-  if (active){
-    return (
-      <div className="customTooltip">
-        <h4>{label}</h4>
-        <p>${payload[0].value.toFixed(2)}</p>
-      </div>
-    )
-  }
-  return <span></span>;
-}
 
 export default Chart;

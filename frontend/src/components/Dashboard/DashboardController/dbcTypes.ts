@@ -64,3 +64,14 @@ export type NumberArray = number[];
 export interface ChartProps {
   chartData: DataPoint[];
 }
+
+export interface NotesProps {
+  notes: string[];
+  currNote: string;
+  addNoteHandler: (e: React.FormEvent<HTMLFormElement>) => void;
+}
+
+export interface Note {
+  userId: number;
+  content: string;
+}

@@ -2,7 +2,8 @@ import {
   ProcessedPair,
   RawPair,
   DataPoint,
-  NumberArray
+  NumberArray,
+  Note
 } from './dbcTypes';
 
 // Request all pairs from the server >
@@ -125,6 +126,39 @@ export const getFavorites = async (userId: number): Promise<ProcessedPair[]> => 
   if (response.ok){
     let result = await response.json();
     data = result.favorites;
+  }
+  return data;
+}
+
+// Request server to add new Note to db >
+export const addNote = async (userId: number, note: string): Promise<{content: string}[]> => {
+  const response = await fetch('/api/notes', {
+    headers: {'Content-Type': 'application/json'},
+    method: 'POST',
+    body: JSON.stringify({
+      userId,
+      note
+    })
+  });
+  let data: {content: string}[] = [];
+  if (response.ok){
+    let result = await response.json();
+    data = result.notes;
+  }
+  return data;
+};
+
+// Request all current notes from server >
+export const getNotes = async (userId: number): Promise<string[]> => {
+  const response = await fetch(`/api/notes/${userId}`);
+  let data: string[] = [];
+  if (response.ok){
+
+    let result = await response.json();
+
+    for(let i = 0; i < result.length; i++){
+      data.push(result[i].content);
+    }
   }
   return data;
 }

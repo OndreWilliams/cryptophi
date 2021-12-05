@@ -18,6 +18,10 @@
   box-sizing: border-box;
 }
 
+.homeLink {
+  text-decoration: none;
+}
+
 .appLogo {
   font-family: 'Lucida Console', monospace;
   align-self: center;

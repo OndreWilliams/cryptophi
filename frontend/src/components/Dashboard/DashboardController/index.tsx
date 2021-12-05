@@ -2,18 +2,26 @@ import React, { useEffect, useState } from 'react';
 import './DashboardController.css';
 import Pairs from '../DashboardPairsView';
 import Chart from '../DashboardChartView';
-import { ProcessedPair, DataPoint } from './dbcTypes';
+import { ProcessedPair, DataPoint, NotesProps } from './dbcTypes';
+import Notes from '../DashboardNotesView'
+import Info from '../DashboardInfoView';
+
 import {
   addFavorite,
   removeFavorite,
   getFavorites,
   getAllPairs,
-  getPairDetails
+  getPairDetails,
+  addNote,
+  getNotes
 } from './dbcFunctions';
 
 const DashboardController: React.FC = () => {
   const [instruments, setInstruments] = useState<ProcessedPair[]>([]);
   const [favorites, setFavorites] = useState<ProcessedPair[]>([]);
+  const [notes, setNotes] = useState<string[]>([]);
+  const [currNote, setCurrNote] = useState<string>('');
+
   const [currChartData, setCurrChartData] = useState<DataPoint[]>([]);
 
   const allPairsUrl = 'https://api.pro.coinbase.com/products';
@@ -21,7 +29,8 @@ const DashboardController: React.FC = () => {
   const productStatsUrl =
     'https://api.exchange.coinbase.com/products/BTC-USD/stats';
 
-  const chartDataUrl = 'https://api.pro.coinbase.com/products/';
+    const elem = document.getElementById('foo');
+
 
   // Retrieve all pairs from Coinbase API on initial load >
   useEffect(() => {
@@ -33,6 +42,10 @@ const DashboardController: React.FC = () => {
 
     getFavorites(1)
       .then((allFavorites) => setFavorites(allFavorites));
+
+    getNotes(1)
+    .then((allNotes) => console.log("allNotes: ", allNotes));//setNotes(allNotes)
+
   }, []);
 
   // Click event handler for setting current chart and info >
@@ -75,6 +88,24 @@ const DashboardController: React.FC = () => {
         });
   };
 
+  // Add a note to database >
+  const addNoteHandler =
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const {currNote} = e.target as typeof e.target & {
+        currNote: { value: string }
+      };
+
+      addNote(1, currNote.value)
+        .then((updatedNotes) => {
+          let data: string[] = [];
+          for(let i = 0; i < updatedNotes.length; i++){
+            data.push(updatedNotes[i].content);
+          }
+          setNotes(data);
+        });
+  };
+
   return (
     <div className='dashboardController'>
       <div className="dashboardGrid">
@@ -82,11 +113,14 @@ const DashboardController: React.FC = () => {
           <div className="chartContainer">
             <Chart
               chartData={currChartData}
-              // pairInfo={pairInfo}
             />
           </div>
-          <div className="infoContainer">
-
+          <div className="infoAndNotesContainer">
+            <Notes
+              notes={notes}
+              currNote={currNote}
+              addNoteHandler={addNoteHandler}
+            />
           </div>
         </div>
         <div className="pairsContainer">

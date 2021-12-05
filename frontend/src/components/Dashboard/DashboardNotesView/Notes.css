@@ -1,0 +1,88 @@
+.notesContainer {
+  height: auto;
+  width: 97%;
+  justify-self: end;
+  display: grid;
+  grid-template-rows: 1fr 6fr 4fr;
+  overflow: hidden;
+  border: 2px solid #2F455C;
+  border-radius: 7px;
+}
+
+.notesHeader {
+  align-self: center;
+  justify-self: center;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  height: 97%;
+
+}
+.notesScroller {
+  align-self: end;
+  justify-self: center;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  height: auto;
+  max-height: 97%;
+  padding: 5px;
+  overflow: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.notesScroller::-webkit-scrollbar {
+  display: none;
+}
+
+.commentFormContainer {
+  height: auto;
+}
+
+.commentForm {
+  width: 100%;
+}
+
+.textAreaFormField {
+  width: 100%;
+}
+
+.commentFormTextarea {
+  background-color: #a3abb1a9;
+  color: #2F455C;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  outline: none !important;
+}
+
+.commentFormSubmit {
+  margin-top: 0;
+  width: 20%;
+  height: 80%;
+  margin: auto;
+  font-size: 16px;
+  border: 1px solid #2F455C;
+  border-radius: 5px;
+  background-color: #2F455C;
+  color:#1DCDFE;
+  box-shadow: 0px 0px 3px #1DCDFE;
+  justify-self: center;
+  display: block;
+  margin: 0px auto;
+  margin-top: 4px;
+  cursor: pointer;
+}
+.comment-card {
+  display: grid;
+  grid-template-rows: auto;
+  background: #a3abb1a9;
+  height: auto;
+  border-radius: 4px;
+  width: auto;
+  margin-bottom: 10px;
+  padding: 10px;
+  max-height: 240px;
+  color: #2F455C;
+}

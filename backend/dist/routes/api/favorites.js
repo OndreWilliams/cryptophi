@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dist_1 = require("sequelize/dist");
 const favorite_1 = __importDefault(require("../../db/models/favorite"));
-const apiTypes_1 = require("./apiTypes");
+const errorUtil_1 = require("./errorUtil");
 const asyncHandler = require('express-async-handler');
 const favoritesRouter = express_1.default.Router();
 // Add a favorite to database and return updated favorites list >
@@ -35,7 +35,7 @@ favoritesRouter.post('', asyncHandler((req, res, next) => __awaiter(void 0, void
         fx_stablecoin,
         trading_disabled,
         status
-    }).catch(err => next(favoriteError('Failed to add favorite')));
+    }).catch(err => next((0, errorUtil_1.serverError)('Failed to add favorite')));
     yield favorite_1.default.findAll({
         attributes: { exclude: ['id', 'userId', 'createdAt', 'updatedAt'] },
         where: {
@@ -45,7 +45,7 @@ favoritesRouter.post('', asyncHandler((req, res, next) => __awaiter(void 0, void
         return res.json({
             favorites
         });
-    }).catch(err => next(favoriteError('Failed to get updated favorites')));
+    }).catch(err => next((0, errorUtil_1.serverError)('Failed to get updated favorites')));
 })));
 // Get and return current favorites list >
 favoritesRouter.get('/:id(\\d+)', asyncHandler((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -59,7 +59,7 @@ favoritesRouter.get('/:id(\\d+)', asyncHandler((req, res, next) => __awaiter(voi
         return res.json({
             favorites
         });
-    }).catch(err => next(favoriteError('Failed to get user favorites')));
+    }).catch(err => next((0, errorUtil_1.serverError)('Failed to get user favorites')));
 })));
 // Remove a favorite from database and return updated favorites list >
 favoritesRouter.delete('', asyncHandler((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -68,7 +68,7 @@ favoritesRouter.delete('', asyncHandler((req, res, next) => __awaiter(void 0, vo
         where: {
             [dist_1.Op.and]: [{ userId: userId }, { pairId: pairId }]
         }
-    }).catch(err => next(favoriteError('Failed to get remove favorite')));
+    }).catch(err => next((0, errorUtil_1.serverError)('Failed to get remove favorite')));
     yield favorite_1.default.findAll({
         attributes: { exclude: ['id', 'userId', 'createdAt', 'updatedAt'] },
         where: {
@@ -78,11 +78,6 @@ favoritesRouter.delete('', asyncHandler((req, res, next) => __awaiter(void 0, vo
         return res.json({
             favorites
         });
-    }).catch(err => next(favoriteError('Failed to get updated favorites')));
+    }).catch(err => next((0, errorUtil_1.serverError)('Failed to get updated favorites')));
 })));
-// Custom error to send on db/server failure >
-const favoriteError = (title) => {
-    const favoriteError = new apiTypes_1.StatusError(500, title);
-    return favoriteError;
-};
 module.exports = favoritesRouter;

@@ -11,6 +11,7 @@ const RowVariant: React.FC<RowVariantProps> = props => {
     <React.Fragment>
       {props.pairs.map((pair) => (
         <TableRow
+          hover={true}
           key={pair.pairId}
           sx={{borderColor: '#2F455C'}}
           onClick={(e) => {props.onSelectPair(e, pair.pairId)}}

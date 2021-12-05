@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { Op } from 'sequelize/dist';
 import Favorite from '../../db/models/favorite';
-import { StatusError } from './apiTypes';
+import { serverError } from './errorUtil';
 const asyncHandler = require('express-async-handler');
 
 
@@ -50,7 +50,7 @@ favoritesRouter.post('', asyncHandler(
       fx_stablecoin,
       trading_disabled,
       status
-    }).catch(err => next(favoriteError('Failed to add favorite')));
+    }).catch(err => next(serverError('Failed to add favorite')));
 
     await Favorite.findAll({
       attributes: {exclude: ['id', 'userId', 'createdAt', 'updatedAt']},
@@ -61,7 +61,7 @@ favoritesRouter.post('', asyncHandler(
       return res.json({
         favorites
       });
-    }).catch(err => next(favoriteError('Failed to get updated favorites')));
+    }).catch(err => next(serverError('Failed to get updated favorites')));
 
 }));
 
@@ -78,7 +78,7 @@ favoritesRouter.get('/:id(\\d+)', asyncHandler(
       return res.json({
         favorites
       });
-    }).catch(err => next(favoriteError('Failed to get user favorites')));
+    }).catch(err => next(serverError('Failed to get user favorites')));
 }));
 
 // Remove a favorite from database and return updated favorites list >
@@ -89,7 +89,7 @@ favoritesRouter.delete('', asyncHandler(
       where: {
         [Op.and]: [{userId: userId}, {pairId: pairId}]
       }
-    }).catch(err => next(favoriteError('Failed to get remove favorite')));
+    }).catch(err => next(serverError('Failed to get remove favorite')));
 
     await Favorite.findAll({
       attributes: {exclude: ['id', 'userId', 'createdAt', 'updatedAt']},
@@ -100,13 +100,9 @@ favoritesRouter.delete('', asyncHandler(
       return res.json({
         favorites
       });
-    }).catch(err => next(favoriteError('Failed to get updated favorites')));
+    }).catch(err => next(serverError('Failed to get updated favorites')));
 }));
 
-// Custom error to send on db/server failure >
-const favoriteError = (title: string): StatusError => {
-  const favoriteError = new StatusError(500, title);
-  return favoriteError;
-};
+
 
 module.exports = favoritesRouter;

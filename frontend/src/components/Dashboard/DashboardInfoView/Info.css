@@ -1,0 +1,6 @@
+.info {
+  height: 100%;
+  width: 97%;
+  border: 2px solid blue;
+  justify-self: start;
+}

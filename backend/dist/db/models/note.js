@@ -18,13 +18,6 @@ Note.init({
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false
     },
-    instrument: {
-        type: sequelize_1.DataTypes.STRING(30),
-        allowNull: false
-    },
-    title: {
-        type: sequelize_1.DataTypes.STRING(128)
-    },
     content: {
         type: sequelize_1.DataTypes.STRING(4096),
         allowNull: false

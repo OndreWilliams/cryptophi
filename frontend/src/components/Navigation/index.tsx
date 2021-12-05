@@ -6,7 +6,9 @@ import './Navigation.css';
 const NavBar: React.FC = () => {
   return(
     <div className='navbarContainer'>
-      <div className="appLogo">Cryptophi</div>
+      <a href="/dashboard" className="homeLink">
+        <div className="appLogo">Cryptophi</div>
+      </a>
       <div className="links">
         <a href='https://www.linkedin.com/in/ondre-williams-289b26132/' className='linkedin'>
           <LinkedInIcon style={{fill: "#21D0B2"}} fontSize='large'/>
